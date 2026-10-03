@@ -14,10 +14,11 @@ const pauseButton = document.querySelector("#pauseButton");
 const pauseIcon = document.querySelector("#pauseIcon");
 const restartButton = document.querySelector("#restartButton");
 const soundButton = document.querySelector("#soundButton");
+const difficultySelect = document.querySelector("#difficulty");
 
 const GRID = 20;
 const CELL = canvas.width / GRID;
-const SPEED = 105;
+const speeds = { slow: 190, normal: 130, fast: 85 };
 const directions = {
   ArrowUp: { x: 0, y: -1 }, w: { x: 0, y: -1 }, ц: { x: 0, y: -1 },
   ArrowDown: { x: 0, y: 1 }, s: { x: 0, y: 1 }, ы: { x: 0, y: 1 },
@@ -30,6 +31,8 @@ let state = "ready";
 let soundEnabled = true;
 let audioContext;
 let best = Number(localStorage.getItem("neon-snake-best") || 0);
+let difficulty = localStorage.getItem("neon-snake-difficulty") || "slow";
+difficultySelect.value = difficulty;
 bestElement.textContent = formatScore(best);
 
 function formatScore(value) { return String(value).padStart(3, "0"); }
@@ -58,7 +61,7 @@ function startGame() {
   state = "playing";
   overlay.classList.add("hidden");
   pauseIcon.textContent = "Ⅱ";
-  timer = setInterval(tick, SPEED);
+  timer = setInterval(tick, speeds[difficulty]);
   playTone(420, .05);
 }
 
@@ -164,7 +167,7 @@ function togglePause() {
     state = "playing";
     pauseIcon.textContent = "Ⅱ";
     overlay.classList.add("hidden");
-    timer = setInterval(tick, SPEED);
+    timer = setInterval(tick, speeds[difficulty]);
   }
 }
 
@@ -215,6 +218,14 @@ soundButton.addEventListener("click", () => {
   soundButton.classList.toggle("off", !soundEnabled);
   soundButton.setAttribute("aria-pressed", soundEnabled);
   if (soundEnabled) playTone(520, .05);
+});
+difficultySelect.addEventListener("change", () => {
+  difficulty = difficultySelect.value;
+  localStorage.setItem("neon-snake-difficulty", difficulty);
+  if (state === "playing") {
+    clearInterval(timer);
+    timer = setInterval(tick, speeds[difficulty]);
+  }
 });
 document.querySelectorAll("[data-direction]").forEach(button => {
   button.addEventListener("click", () => setDirection(directions[`Arrow${button.dataset.direction[0].toUpperCase()}${button.dataset.direction.slice(1)}`]));
