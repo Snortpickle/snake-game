@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090d1a" />
+    <meta name="description" content="Неоновая Змейка — красивая браузерная аркада без зависимостей." />
+    <title>Неоновая Змейка</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow"><span></span> КЛАССИКА В НОВОМ СВЕТЕ</p>
+          <h1>Неоновая<br /><em>Змейка</em></h1>
+        </div>
+        <p class="intro">Собирай кристаллы, становись длиннее<br />и не касайся стен. Сможешь побить рекорд?</p>
+      </header>
+
+      <section class="game-layout" aria-label="Игровая зона">
+        <aside class="stats glass">
+          <div class="stat">
+            <span class="stat-label">СЧЁТ</span>
+            <strong id="score">000</strong>
+          </div>
+          <div class="divider"></div>
+          <div class="stat">
+            <span class="stat-label">РЕКОРД</span>
+            <strong id="best">000</strong>
+          </div>
+          <div class="tip desktop-tip">
+            <span class="key-grid" aria-hidden="true"><i>↑</i><i>←</i><i>↓</i><i>→</i></span>
+            <p>Используй стрелки<br />или <b>WASD</b></p>
+          </div>
+        </aside>
+
+        <div class="board-shell">
+          <canvas id="game" width="600" height="600" aria-label="Поле игры Змейка" role="img"></canvas>
+          <div class="board-shine"></div>
+          <div class="overlay" id="overlay">
+            <span class="overlay-icon" id="overlayIcon">✦</span>
+            <p class="overlay-kicker" id="overlayKicker">ГОТОВЫ?</p>
+            <h2 id="overlayTitle">Начнём игру!</h2>
+            <p id="overlayText">Собирай сияющие кристаллы<br />и избегай столкновений.</p>
+            <button class="primary" id="startButton">Играть <span>→</span></button>
+          </div>
+        </div>
+
+        <aside class="actions">
+          <button class="icon-button glass" id="pauseButton" aria-label="Поставить игру на паузу" title="Пауза (пробел)">
+            <span id="pauseIcon">Ⅱ</span>
+          </button>
+          <button class="icon-button glass" id="restartButton" aria-label="Начать заново" title="Начать заново">
+            <span>↻</span>
+          </button>
+          <div class="sound-pill glass">
+            <span>ЗВУК</span>
+            <button id="soundButton" class="toggle" aria-label="Включить или выключить звук" aria-pressed="true"><i></i></button>
+          </div>
+        </aside>
+      </section>
+
+      <div class="mobile-controls" aria-label="Сенсорное управление">
+        <button data-direction="up" aria-label="Вверх">↑</button>
+        <button data-direction="left" aria-label="Влево">←</button>
+        <button data-direction="down" aria-label="Вниз">↓</button>
+        <button data-direction="right" aria-label="Вправо">→</button>
+      </div>
+
+      <footer>
+        <p><span>✦</span> Собери <b>как можно больше</b></p>
+        <p>ПРОБЕЛ — ПАУЗА</p>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
